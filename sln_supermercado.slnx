@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="vista/vista.vcxproj" Id="50149824-5fbc-48c4-b920-c93b72f2c5a7" />
+</Solution>
