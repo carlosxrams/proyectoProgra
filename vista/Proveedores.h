@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "ConexionBD.h"
 using namespace std;
 class Proveedores
@@ -67,7 +68,7 @@ public:
 		cn.abrir_conexion();
 
 		if (cn.getConector()) {
-			 
+
 			string consulta = "SELECT id_proveedor, proveedor, nit, direccion, telefono FROM proveedores;";
 			const char* c = consulta.c_str();
 			q_estado = mysql_query(cn.getConector(), c);
@@ -75,15 +76,27 @@ public:
 			if (!q_estado) {
 				resultado = mysql_store_result(cn.getConector());
 
-				cout << "--------- PROVEEDORES REGISTRADOS ---------" << endl;
-				cout << "ID | Proveedor | Nit | Direccion | Telefono " << endl;
-				cout << "---------------------------------------" << endl;
+				
+				cout << "\n================================================ PROVEEDORES REGISTRADOS ================================================\n";
+				cout << left << setw(6) << "ID"
+					<< setw(25) << "Proveedor"
+					<< setw(12) << "NIT"
+					<< setw(35) << "Direccion"
+					<< setw(12) << "Telefono" << "\n";
+				cout << "-------------------------------------------------------------------------------------------------------------------------\n";
 
+				
 				while (fila = mysql_fetch_row(resultado)) {
-					// fila[0] es el id y asi sucesivamente
-					cout << fila[0] << " | " << fila[1] << " | "<< fila[2] << "|" << fila[3] << "|" << fila[4] << endl;
+					
+					cout << left << setw(6) << (fila[0] ? fila[0] : "N/A")
+						<< setw(25) << (fila[1] ? fila[1] : "N/A")
+						<< setw(12) << (fila[2] ? fila[2] : "N/A")
+						<< setw(35) << (fila[3] ? fila[3] : "N/A")
+						<< setw(12) << (fila[4] ? fila[4] : "N/A") << "\n";
 				}
-				cout << "---------------------------------------" << endl;
+				cout << "=========================================================================================================================\n";
+
+				mysql_free_result(resultado); 
 			}
 			else {
 				cout << "Error al consultar los datos: " << mysql_error(cn.getConector()) << endl;

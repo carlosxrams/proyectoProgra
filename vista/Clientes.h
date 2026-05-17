@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "ConexionBD.h"
 using namespace std;
 
@@ -85,15 +86,39 @@ public:
 			if (!q_estado) {
 				resultado = mysql_store_result(cn.getConector());
 
-				cout << "--------- PROVEEDORES REGISTRADOS ---------" << endl;
-				cout << "ID   |   Nombres   |  Apellidos  |  Nit  |  Genero  |   Telefono  |  Correo Electronico  |  Fecha de ingreso  | " << endl;
-				cout << "---------------------------------------" << endl;
+				
+				cout << "\n========================================================= CLIENTES REGISTRADOS =========================================================\n";
+				cout << left << setw(6) << "ID"
+					<< setw(18) << "Nombres"
+					<< setw(18) << "Apellidos"
+					<< setw(10) << "NIT"
+					<< setw(10) << "Genero"
+					<< setw(12) << "Telefono"
+					<< setw(28) << "Correo Electronico"
+					<< setw(18) << "Fecha Ingreso" << "\n";
+				cout << "---------------------------------------------------------------------------------------------------------------------------------------\n";
 
+				
 				while (fila = mysql_fetch_row(resultado)) {
-					// fila[0] es el id y asi sucesivamente
-					cout << fila[0] << " | " << fila[1] << " | " << fila[2] << "|" << fila[3] << "|" << fila[4] <<" | " << fila[5] << " | " << fila[6] << " | " << fila[7] <<  endl;
+
+					
+					string texto_genero = "N/A";
+					if (fila[4]) {
+						texto_genero = (string(fila[4]) == "0") ? "Masculino" : "Femenino";
+					}
+
+					cout << left << setw(6) << (fila[0] ? fila[0] : "N/A")
+						<< setw(18) << (fila[1] ? fila[1] : "N/A")
+						<< setw(18) << (fila[2] ? fila[2] : "N/A")
+						<< setw(10) << (fila[3] ? fila[3] : "N/A")
+						<< setw(10) << texto_genero
+						<< setw(12) << (fila[5] ? fila[5] : "N/A")
+						<< setw(28) << (fila[6] ? fila[6] : "N/A")
+						<< setw(18) << (fila[7] ? fila[7] : "N/A") << "\n";
 				}
-				cout << "---------------------------------------" << endl;
+				cout << "=======================================================================================================================================\n";
+
+				mysql_free_result(resultado); 
 			}
 			else {
 				cout << "Error al consultar los datos: " << mysql_error(cn.getConector()) << endl;
