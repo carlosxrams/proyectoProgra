@@ -9,7 +9,7 @@ private: MYSQL* conector;
 public :
 	void abrir_conexion() {
 		conector = mysql_init(0);
-		conector = mysql_real_connect(conector, "localhost", "USUARIO", "CONTRASENA", "db_super_mercado", 3306, NULL, 0);
+		conector = mysql_real_connect(conector, "localhost", "root", "marianatelloC3653=", "db_super_mercado", 3306, NULL, 0);
 	}
 	MYSQL* getConector() {
 		return conector;

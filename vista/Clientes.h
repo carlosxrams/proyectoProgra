@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <regex>
 #include "ConexionBD.h"
 using namespace std;
 

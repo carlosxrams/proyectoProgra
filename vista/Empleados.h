@@ -1,9 +1,10 @@
 #pragma once
+#include <regex>
 #include <iostream>
 #include <string>
 #include <iomanip>
 #include <limits>
-#include <sstream> 
+#include <sstream>
 #include "ConexionBD.h" 
 #include "Productos.h"
 
